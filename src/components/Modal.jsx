@@ -1,13 +1,15 @@
+import { createPortal } from "react-dom";
+
 export default function Modal({ title, children, width, open, onClose }) {
-  return (
+  return createPortal(
     <>
       {open && (
         <>
           <div className="fixed inset-0 bg-white opacity-70 z-20"></div>
           <div className="fixed inset-0 z-30 ">
-            <div className="flex justify-center items-center min-h-full border border-black ">
+            <div className="flex justify-center items-center min-h-full">
               <div
-                className="h-[28rem] w-full flex flex-col rounded-lg sm:w-[20rem] sm:h-[25rem] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-300 to-pink-100 shadow-[0_0_15px_rgb(0_0_0/0.4)] px-2 py-4"
+                className="h-[30rem] w-full flex flex-col rounded-lg sm:w-[22rem] sm:h-[30rem] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-300 to-pink-100 shadow-[0_0_15px_rgb(0_0_0/0.4)] px-2 py-4"
                 style={{ maxWidth: `${width}rem` }}
               >
                 <div className="flex justify-between px-2">
@@ -26,6 +28,7 @@ export default function Modal({ title, children, width, open, onClose }) {
           </div>
         </>
       )}
-    </>
+    </>,
+    document.getElementById("modal")
   );
 }
