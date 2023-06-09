@@ -1,7 +1,7 @@
 export default function LoginSelect() {
   return (
-    <form >
-      <select className="text-center rounded-lg" placeholder="Select Table">
+    <form>
+      <select className="text-center rounded-lg outline-none" placeholder="Select Table">
         <option id="selecttable" >Select Table</option>
         <option id="1">1</option>
         <option id="2">2</option>

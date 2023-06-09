@@ -4,10 +4,9 @@ import RegisterInput from "./RegisterInput";
 import InputErrorMessage from "./InputErrorMessage";
 
 const initialInput = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phoneNumber: "",
+  firstname: "",
+  lastname: "",
+  mobile: "",
   password: "",
   confirmPassword: "",
 };
@@ -34,32 +33,32 @@ export default function RegisterForm() {
           <RegisterInput
             name="firstName"
             placeholder="Firstname"
-            value={input.firstName}
+            value={input.firstname}
             onChange={handleChangeInput}
-            isInValid={error.firstName}
+            isInValid={error.firstname}
           />
-          {error.firstName && <InputErrorMessage message={error.firstName} />}
+          {error.firstname && <InputErrorMessage message={error.firstname} />}
         </div>
         <div>
           <RegisterInput
             name="lastName"
             placeholder="Lastname"
-            value={input.lastName}
+            value={input.lastname}
             onChange={handleChangeInput}
-            isInValid={error.lastName}
+            isInValid={error.lastname}
           />
-          {error.lastName && <InputErrorMessage message={error.lastName} />}
+          {error.lastname && <InputErrorMessage message={error.lastname} />}
         </div>
         <div className="col-span-full">
           <RegisterInput
             name="phoneNumber"
-            placeholder="Phonenumber"
-            value={input.phoneNumber}
+            placeholder="Phone number"
+            value={input.mobile}
             onChange={handleChangeInput}
-            isInValid={error.phoneNumber}
+            isInValid={error.mobile}
           />
-          {error.phoneNumber && (
-            <InputErrorMessage message={error.phoneNumber} />
+          {error.mobile && (
+            <InputErrorMessage message={error.mobile} />
           )}
         </div>
         <div className="col-span-full">

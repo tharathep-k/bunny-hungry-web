@@ -1,16 +1,16 @@
 import Joi from "joi";
 
 const regiterSchema = Joi.object({
-  firstName: Joi.string().trim().required().messages({
+  firstname: Joi.string().trim().required().messages({
     "string.empty": "Firstname is required.",
   }),
-  lastName: Joi.string().trim().required().messages({
+  lastname: Joi.string().trim().required().messages({
     "string.empty": "Lastname is required.",
   }),
-  phoneNumber: Joi.string()
+  mobile: Joi.string()
     .pattern(/^[0-9]{10}$/)
     .messages({
-      "string.empty": "Phonenumber is required.",
+      "string.empty": "Phone number is required.",
       "string.pattern.base": "Phone number is required.",
     }),
   password: Joi.string()
@@ -21,7 +21,7 @@ const regiterSchema = Joi.object({
       "string.empty": "Password is required.",
       "string.pattern.base": "Password must be at least 6 characters.",
     }),
-  confirmPassword: Joi.string().valid(Joi.ref("password")).messages({
+  confirmpassword: Joi.string().valid(Joi.ref("password")).messages({
     "any.only": "Password and Confrimpassword did not match.",
     "string.empty": "Confirm password is required.",
   }),
