@@ -7,9 +7,6 @@ const regiterSchema = Joi.object({
   lastName: Joi.string().trim().required().messages({
     "string.empty": "Lastname is required.",
   }),
-  email: Joi.string().email({ tlds: false }).messages({
-    "string.empty": "Invalid email address.",
-  }),
   phoneNumber: Joi.string()
     .pattern(/^[0-9]{10}$/)
     .messages({

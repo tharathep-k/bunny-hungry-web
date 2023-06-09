@@ -52,16 +52,6 @@ export default function RegisterForm() {
         </div>
         <div className="col-span-full">
           <RegisterInput
-            name="email"
-            placeholder="Email"
-            value={input.email}
-            onChange={handleChangeInput}
-            isInValid={error.email}
-          />
-          {error.email && <InputErrorMessage message={error.email} />}
-        </div>
-        <div className="col-span-full">
-          <RegisterInput
             name="phoneNumber"
             placeholder="Phonenumber"
             value={input.phoneNumber}

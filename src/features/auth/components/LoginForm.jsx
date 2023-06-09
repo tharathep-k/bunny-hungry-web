@@ -5,7 +5,7 @@ export default function LoginForm() {
   return (
     <>
       <div>
-        <LoginInput placeholder="Username" />
+        <LoginInput placeholder="Phone number" />
       </div>
       <div>
         <LoginInput placeholder="Password" />
