@@ -1,6 +1,5 @@
 export default function LoginSelect() {
   return (
-    <form>
       <select className="text-center rounded-lg outline-none" placeholder="Select Table">
         <option id="selecttable" >Select Table</option>
         <option id="1">1</option>
@@ -11,6 +10,5 @@ export default function LoginSelect() {
         <option id="6">6</option>
         <option id="takeaway">Take away</option>
       </select>
-    </form>
   );
 }

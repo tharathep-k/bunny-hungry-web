@@ -16,12 +16,13 @@ export default function LoginForm() {
   const handleChangeInputLogin = (e) =>
     setInput({ ...input, [e.target.name]: e.target.value });
 
-  const handleSubmitLogin = (e) => {
+  const handleSubmitLogin = async (e) => {
     e.preventDefault();
     const result = validateLogin(input);
     if (result) {
       return setError(result);
     }
+    
   };
 
   return (

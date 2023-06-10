@@ -1,28 +1,42 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import validateRegister from "../validator/validate-register";
 import RegisterInput from "./RegisterInput";
 import InputErrorMessage from "./InputErrorMessage";
+import { registerAsync } from "../slice/auth-slice";
 
 const initialInput = {
   firstname: "",
   lastname: "",
   mobile: "",
   password: "",
-  confirmPassword: "",
+  confirmpassword: "",
 };
 
-export default function RegisterForm() {
+export default function RegisterForm({ onSuccess }) {
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
+
+  const dispatch = useDispatch();
 
   const handleChangeInput = (e) =>
     setInput({ ...input, [e.target.name]: e.target.value });
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
-    const result = validateRegister(input);
-    if (result) {
-      return setError(result);
+  const handleSubmitForm = async (e) => {
+    try {
+      e.preventDefault();
+      const result = validateRegister(input);
+      if (result) {
+        return setError(result);
+      }
+      setError({});
+
+      await dispatch(registerAsync(input)).unwrap();
+      alert("Register successfully");
+      onSuccess();
+    } catch (error) {
+      alert("This number is already in use. Please use another number.");
     }
   };
 
@@ -31,17 +45,17 @@ export default function RegisterForm() {
       <div className="grid grid-cols-2 pt-6 gap-2 gap-y-4 px-2">
         <div>
           <RegisterInput
-            name="firstName"
+            name="firstname"
             placeholder="Firstname"
             value={input.firstname}
             onChange={handleChangeInput}
             isInValid={error.firstname}
-          />
+          /> 
           {error.firstname && <InputErrorMessage message={error.firstname} />}
         </div>
         <div>
           <RegisterInput
-            name="lastName"
+            name="lastname"
             placeholder="Lastname"
             value={input.lastname}
             onChange={handleChangeInput}
@@ -51,15 +65,13 @@ export default function RegisterForm() {
         </div>
         <div className="col-span-full">
           <RegisterInput
-            name="phoneNumber"
+            name="mobile"
             placeholder="Phone number"
             value={input.mobile}
             onChange={handleChangeInput}
             isInValid={error.mobile}
           />
-          {error.mobile && (
-            <InputErrorMessage message={error.mobile} />
-          )}
+          {error.mobile && <InputErrorMessage message={error.mobile} />}
         </div>
         <div className="col-span-full">
           <RegisterInput
@@ -73,14 +85,14 @@ export default function RegisterForm() {
         </div>
         <div className="col-span-full">
           <RegisterInput
-            name="confirmPassword"
+            name="confirmpassword"
             placeholder="Confirm Password"
-            value={input.confirmPassword}
+            value={input.confirmpassword}
             onChange={handleChangeInput}
-            isInValid={error.confirmPassword}
+            isInValid={error.confirmpassword}
           />
-          {error.confirmPassword && (
-            <InputErrorMessage message={error.confirmPassword} />
+          {error.confirmpassword && (
+            <InputErrorMessage message={error.confirmpassword} />
           )}
         </div>
         <div className="pt-6 flex justify-center col-span-full">
