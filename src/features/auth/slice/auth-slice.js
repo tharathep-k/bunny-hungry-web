@@ -10,28 +10,45 @@ const initialState = {
 
 export const registerAsync = createAsyncThunk(
   "auth/registerAsync",
-  async (input) => {
+  async (input, thunkApi) => {
     try {
       const res = await authApi.register(input);
       setAccessToken(res.data.accessToken);
-      return;
     } catch (error) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
   }
 );
 
+export const loginAsync = createAsyncThunk("auth/loginAsync", async (input, thunkApi) => {
+  try {
+    const res = await authApi.login(input);
+    setAccessToken(res.data.accessToken);
+  } catch (error) {
+    return thunkApi.rejectWithValue(err.response.data.message);
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  extraReucers: (builder) =>
+  extraReducers: (builder) =>
     builder
-      .addcase(registerAsync.pending, (state) => (state.loading = true))
-      .addcase(registerAsync.fulfilled, (state) => {
+      .addCase(registerAsync.pending, (state) => (state.loading = true))
+      .addCase(registerAsync.fulfilled, (state) => {
         state.isAuthenticated = true;
         state.loading = false;
       })
-      .addcase(registerAsync.rejected, (state) => {
+      .addCase(registerAsync.rejected, (state) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+      // .addCase(loginAsync.pending, (state) => (state.loading = true))
+      .addCase(loginAsync.fulfilled, (state) => {
+        state.isAuthenticated = true;
+        state.loading = true;
+      })
+      .addCase(loginAsync.rejected, (state) => {
         state.error = action.payload;
         state.loading = false;
       }),

@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import validateLogin from "../validator/validate-login";
 import LoginInput from "./LoginInput";
 import LoginSelect from "./LoginSelect";
 import InputErrorMessage from "./InputErrorMessage";
+import { loginAsync } from "../slice/auth-slice";
 
 const initialLogin = {
   mobile: "",
@@ -13,16 +16,25 @@ export default function LoginForm() {
   const [input, setInput] = useState(initialLogin);
   const [error, setError] = useState({});
 
+  const dispatch = useDispatch();
+
   const handleChangeInputLogin = (e) =>
     setInput({ ...input, [e.target.name]: e.target.value });
 
   const handleSubmitLogin = async (e) => {
-    e.preventDefault();
-    const result = validateLogin(input);
-    if (result) {
-      return setError(result);
+    try {
+      e.preventDefault();
+      const result = validateLogin(input);
+      if (result) {
+        return setError(result);
+      }
+      setError({});
+
+      await dispatch(loginAsync(input)).unwrap();
+      alert("Enjoy your order !!");
+    } catch (error) {
+      alert("Login false, please try again.");
     }
-    
   };
 
   return (
