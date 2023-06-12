@@ -27,15 +27,21 @@ export default function RegisterForm({ onSuccess }) {
     try {
       e.preventDefault();
       const result = validateRegister(input);
+      console.log(result);
       if (result) {
         return setError(result);
       }
       setError({});
 
+      console.log(input);
+      // console.log(result)
+      // console.log(dispatch)
+      console.log(registerAsync(input));
       await dispatch(registerAsync(input)).unwrap();
       alert("Register successfully");
       onSuccess();
     } catch (error) {
+      console.log(error)
       alert("This number is already in use. Please use another number.");
     }
   };
@@ -50,7 +56,7 @@ export default function RegisterForm({ onSuccess }) {
             value={input.firstname}
             onChange={handleChangeInput}
             isInValid={error.firstname}
-          /> 
+          />
           {error.firstname && <InputErrorMessage message={error.firstname} />}
         </div>
         <div>

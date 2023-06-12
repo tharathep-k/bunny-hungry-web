@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthenticated";
 import FooterFrom from "../features/home/FooterForm";
+import AdminPage from "../pages/AdminPage";
 import CartPage from "../pages/CartPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "/home", element: <HomePage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/cart", element: <CartPage /> },
+      { path: "/admin", element: <AdminPage /> },
     ],
   },
   {
