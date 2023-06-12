@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as authApi from "../../../api/auth-api";
-import { setAccessToken } from "../../../utils/localstorage";
+import { removeAccessToken, setAccessToken } from "../../../utils/localstorage";
 
 const initialState = {
   isAuthenticated: false,
@@ -17,6 +17,7 @@ export const registerAsync = createAsyncThunk(
       const res = await authApi.register(input);
       setAccessToken(res.data.accessToken);
       const resFetchMe = await authApi.fetchMe();
+      console.log(resFetchMe);
       return resFetchMe.data.user;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
@@ -47,6 +48,10 @@ export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
   }
 });
 
+export const logoutAsync = createAsyncThunk("/auth.logoutAsync", async () => {
+  removeAccessToken();
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -61,9 +66,10 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.loading = false;
       })
-      .addCase(loginAsync.fulfilled, (state) => {
+      .addCase(loginAsync.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.loading = true;
+        state.user = action.payload;
       })
       .addCase(loginAsync.rejected, (state, action) => {
         state.error = action.payload;
@@ -81,6 +87,10 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.initialLoading = false;
       })
+      .addCase(logoutAsync.fulfilled, (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
+      }),
 });
 
 export default authSlice.reducer;
