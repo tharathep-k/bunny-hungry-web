@@ -1,12 +1,13 @@
-import { useSelector } from "react-redux";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthenticated";
 import FooterFrom from "../features/home/FooterForm";
-import AdminPage from "../pages/AdminPage";
+import FooterFromAdmin from "../features/admin/FooterFormAdmin"
+import AdminHomePage from "../pages/AdminHomePage";
 import CartPage from "../pages/CartPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
+import ProfileAdminPage from "../pages/ProfileAdminPage";
 import ProfilePage from "../pages/ProfilePage";
 import StartPage from "../pages/StartPage";
 
@@ -25,7 +26,6 @@ const router = createBrowserRouter([
       { path: "/home", element: <HomePage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/cart", element: <CartPage /> },
-      { path: "/admin", element: <AdminPage /> },
     ],
   },
   {
@@ -36,6 +36,21 @@ const router = createBrowserRouter([
       </RedirectIfAuthenticated>
     ),
   },
+  {
+    path: "/",
+    element: (
+      <div className="overflow-x-hidden">
+        <Outlet />
+        <FooterFromAdmin />
+      </div>
+    ),
+    children: [
+      { path: "/profileadmin", element: <ProfileAdminPage /> },
+      { path: "/admin", element: <AdminHomePage /> },
+    ],
+  },
+  
+ 
 ]);
 
 export default function Router() {
