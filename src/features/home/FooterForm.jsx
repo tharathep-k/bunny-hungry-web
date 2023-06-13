@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 export default function FooterFrom() {
   const user = useSelector((state) => state.auth.user);
+  // const staff = useSelector((state) => state.auth.staff);
 
   const navigate = useNavigate();
   const onNavigateToProfile = () => {
@@ -15,6 +16,12 @@ export default function FooterFrom() {
     } else {
       navigate("/login");
     }
+
+    // if (staff) {
+    //   navigate("/profile")
+    // } else {
+    //   navigate("/login");
+    // }
   };
 
   return (
