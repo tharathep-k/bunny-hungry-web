@@ -11,8 +11,8 @@ export const createMenu = createAsyncThunk(
   "auth/createMenu",
   async (input, thunkApi) => {
     try {
+      console.log(input);
       const res = await authProduct.createMenu(input);
-      console.log(res.data);
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
@@ -57,7 +57,7 @@ const menuSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(createMenu.fulfilled, (state, action) => {
-        state.data.unshift = action.payload;
+        state.data.unshift(action.payload);
       })
       .addCase(editMenu.fulfilled, (state, action) => {
         const idx = state.data.findIndex((el) => el.id === action.payload.id);
