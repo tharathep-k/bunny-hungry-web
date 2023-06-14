@@ -71,6 +71,7 @@ export default function AddMenuForm({ onSuccess }) {
       // }
     } catch (error) {
       alert(error);
+      onSuccess();
     }
   };
 

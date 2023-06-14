@@ -11,15 +11,13 @@ import AddMenuForm from "../features/admin/AddMenuForm";
 export default function AdminHomePage() {
   const [open, setOpen] = useState(false);
 
-  const menu = useSelector(state => state.menu.data)
+  const menu = useSelector((state) => state.menu.data);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getMenu());
   }, []);
-
-  
 
   return (
     <>
@@ -36,11 +34,11 @@ export default function AdminHomePage() {
               <img src={addIcon} className="w-[2rem] h-[2rem] mt-5" />
             </div>
             <Modal open={open} onClose={() => setOpen(false)} title="Add Menu">
-              <AddMenuForm />
+              <AddMenuForm onSuccess={() => setOpen(false)} />
             </Modal>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:mx-[2rem] sm:my-4">
-            <MenuCard menu={menu}/>
+            <MenuCard menu={menu} />
           </div>
         </div>
       </div>
