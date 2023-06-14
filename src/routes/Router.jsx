@@ -2,7 +2,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthenticated";
 import FooterFrom from "../features/home/FooterForm";
-import FooterFromAdmin from "../features/admin/FooterFormAdmin"
+import FooterFromAdmin from "../features/admin/FooterFormAdmin";
 import AdminHomePage from "../pages/AdminHomePage";
 import CartPage from "../pages/CartPage";
 import HomePage from "../pages/HomePage";
@@ -10,6 +10,7 @@ import LoginPage from "../pages/LoginPage";
 import ProfileAdminPage from "../pages/ProfileAdminPage";
 import ProfilePage from "../pages/ProfilePage";
 import StartPage from "../pages/StartPage";
+import OrderAdminPage from "../pages/OrderAdminPage";
 
 const router = createBrowserRouter([
   { index: true, element: <StartPage /> },
@@ -47,10 +48,9 @@ const router = createBrowserRouter([
     children: [
       { path: "/profileadmin", element: <ProfileAdminPage /> },
       { path: "/admin", element: <AdminHomePage /> },
+      { path: "/orderadmin", element: <OrderAdminPage /> },
     ],
   },
-  
- 
 ]);
 
 export default function Router() {

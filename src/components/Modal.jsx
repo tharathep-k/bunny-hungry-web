@@ -18,6 +18,7 @@ export default function Modal({ title, children, width, open, onClose }) {
                   <div
                     className="text-gray-500 hover:text-black cursor-pointer"
                     onClick={onClose}
+                    
                   >
                     &#10005;
                   </div>

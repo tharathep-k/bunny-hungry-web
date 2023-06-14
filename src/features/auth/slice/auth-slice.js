@@ -20,14 +20,15 @@ export const loginAsync = createAsyncThunk(
       setAccessToken(res.data.accessToken);
       let resFetchMe;
       if (res.data.role == "user") {
-        console.log(res.data.role);
+        localStorage.setItem("role","user")
         resFetchMe = await authApi.fetchMe();
         return resFetchMe.data.user;
       }
       if (res.data.role == "staff") {
-        console.log(res.data.role);
+        // console.log(res.data.role);
+        localStorage.setItem("role","staff")
         const resFetchMe = await authApi.fetchMeStaff();
-        console.log(resFetchMe)
+        // console.log(resFetchMe)
         return resFetchMe.data.staff;
       }
     } catch (error) {
@@ -38,24 +39,19 @@ export const loginAsync = createAsyncThunk(
 
 export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
   try {
-    const res = await authApi.fetchMe();
-    return res.data.user;
+    let role = localStorage.getItem('role')
+    if (role === "user") {
+      const res = await authApi.fetchMe();
+      return res.data.user;
+    } else if (role === "staff") {
+      const res = await authApi.fetchMeStaff();
+      return res.data.staff;
+    }
+  
   } catch (err) {
     return thunkApi.rejectWithValue(err.response.data.message);
   }
 });
-
-export const fetchMeStaff = createAsyncThunk(
-  "auth/fetchMeStaff",
-  async (_, thunkApi) => {
-    try {
-      const res = await authApi.fetchMeStaff();
-      return res.data.staff;
-    } catch (err) {
-      return thunkApi.rejectWithValue(err.response.data.message);
-    }
-  }
-);
 
 export const logoutAsync = createAsyncThunk("/auth.logoutAsync", async () => {
   removeAccessToken();
@@ -65,9 +61,9 @@ export const registerAsync = createAsyncThunk(
   "auth/registerAsync",
   async (input, thunkApi) => {
     try {
-      console.log("input");
+      // console.log("input");
       const res = await authApi.register(input);
-      console.log(res);
+      // console.log(res);
       setAccessToken(res.data.accessToken);
       const resFetchMe = await authApi.fetchMe();
 
@@ -117,23 +113,10 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.initialLoading = false;
       })
-      .addCase(fetchMeStaff.pending, (state) => {
-        state.initialLoading = true;
-      })
-      .addCase(fetchMeStaff.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
-        state.initialLoading = false;
-        state.staff = action.payload;
-      })
-      .addCase(fetchMeStaff.rejected, (state, action) => {
-        state.error = action.payload;
-        state.initialLoading = false;
-      })
       .addCase(logoutAsync.fulfilled, (state) => {
         state.isAuthenticated = false;
         state.user = null;
-        // state.role = null;
-        // state.staff = null;
+
       }),
 });
 

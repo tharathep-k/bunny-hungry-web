@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 export default function FooterFrom() {
   const user = useSelector((state) => state.auth.user);
+  // const user = false
   // const staff = useSelector((state) => state.auth.staff);
 
   const navigate = useNavigate();

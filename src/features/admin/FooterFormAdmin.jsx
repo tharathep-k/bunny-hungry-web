@@ -23,30 +23,34 @@ export default function FooterFormAdmin() {
     }
   };
 
+  const onNavigateToEdit = () => {
+    navigate("/admin")
+  }
+
+  const onNavigateToOrderAdmin = () => {
+    navigate("/orderadmin")
+  }
+
   return (
     <div className="sm:max-w-[27rem] sm:h-[6rem] flex fixed bottom-0">
-      <Link
-        to="/admin"
-        role="button"
+      <div
+        onClick={onNavigateToEdit}
         className="h-[6rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
       >
         <div className="w-[4rem] h-[4rem]">
           <img src={homeIcon} className="fill-white" />
         </div>
-      </Link>
-      <Link
-        to="/cart"
-        role="button"
+      </div>
+      <div
+        onClick={onNavigateToOrderAdmin}
         className="h-[6rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
       >
         <div className="w-[4rem] h-[4rem]">
           <img src={cartIcon} />
         </div>
-      </Link>
+      </div>
       <div
         onClick={onNavigateToProfile}
-        // to="/login"
-        // role="button"
         className="h-[6rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
       >
         <div className="w-[4rem] h-[4rem]">
