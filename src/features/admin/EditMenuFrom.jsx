@@ -1,6 +1,6 @@
 import EditMenuInput from "./EditMenuInput";
 import addphotoIcon from "../../icons/addphoto.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editMenu } from "../auth/slice/product-slice";
 import { useState } from "react";
 

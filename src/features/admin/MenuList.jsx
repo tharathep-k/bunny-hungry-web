@@ -33,17 +33,21 @@ export default function MenuList({ item }) {
       </div>
       <div onClick={() => setOpenEdit(true)}>
         <img src={editIcon} className="w-[2rem] h-[2rem]" />
-        <ModalEditMenu open={openEdit} onClose={() => {
-          // console.log("gg",openEdit)
-          setOpenEdit(false)
-          }} 
-          
+      </div>
+
+      {openEdit && (
+        <ModalEditMenu
+          open={openEdit}
+          onClose={() => {
+            // console.log("gg",openEdit)
+            setOpenEdit(false);
+          }}
           title="Edit Menu"
           setOpenEdit={setOpenEdit}
-          >
+        >
           <EditMenuFrom item={item} />
         </ModalEditMenu>
-      </div>
+      )}
       <div onClick={handleOnDelete}>
         <img src={binIcon} className="w-[2rem] h-[2rem] mr-4" />
       </div>
