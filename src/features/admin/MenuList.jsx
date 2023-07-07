@@ -27,7 +27,7 @@ export default function MenuList({ item }) {
   };
 
   return (
-    <div className="sm:h-[6rem] sm:w-[22rem] rounded-lg border border-gray-500 flex justify-between items-center">
+    <div className="sm:h-[6.5rem] sm:w-[22rem] mb-[0.5rem] rounded-lg border border-gray-500 flex justify-between items-center">
       <div className="w-[10rem]">
         <div className="mx-4">{item.name}</div>
       </div>
