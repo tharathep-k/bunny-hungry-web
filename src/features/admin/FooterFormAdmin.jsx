@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import profileIcon from "../../icons/profile.svg";
 import cartIcon from "../../icons/shopping-cart.svg";

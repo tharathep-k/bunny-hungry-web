@@ -5,7 +5,7 @@ import Logo from "../../../assets/bunny-hungry-logo.jpeg";
 export default function StartForm() {
     return (
         <div
-      className="bg-cover bg-center sm:w-[27rem] sm:h-[57rem] fixed"
+      className="bg-cover bg-center sm:w-[27rem] sm:h-[58rem] fixed"
       style={{ backgroundImage: `url(${Logo})` }}
     >
       <div className="border border-white sm:w-full sm:h-full flex flex-col justify-evenly items-center">

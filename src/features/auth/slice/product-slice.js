@@ -31,7 +31,6 @@ export const editMenu = createAsyncThunk(
     }
   }
 );
-
 export const getMenu = createAsyncThunk("auth/getMenu", async (_, thunkApi) => {
   try {
     const res = await authProduct.getMenu();

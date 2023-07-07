@@ -1,17 +1,19 @@
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logoHeader from "../assets/bunny-hungry-low-circle-logo.png";
 import { logoutAsync } from "../features/auth/slice/auth-slice";
 import profileIcon from "../icons/profile.svg";
 
 export default function ProfilePage() {
+  const User = useSelector((state) => state.auth.user);
+
   const dispatch = useDispatch();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onNavigateToHome = () => {
-    dispatch(logoutAsync())
-    navigate("/home")
-  }
+    dispatch(logoutAsync());
+    navigate("/home");
+  };
 
   return (
     <div className="sm:w-[100vh] flex flex-col fixed">
@@ -27,13 +29,13 @@ export default function ProfilePage() {
         </div>
         <div className="sm:w-[22rem] sm:h-[10rem] mr-2 px-2 py-4 pt-6 border grid grid-cols-2 gap-2 rounded-lg bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-100 to-red-200 shadow-lg">
           <div className="border border-black w-[10rem] h-[3rem] pl-2 pt-1 text-[1.5rem] rounded-lg">
-            Fristname
+            {User.firstname}
           </div>
           <div className="border border-black w-[10rem] h-[3rem] pl-2 pt-1 text-[1.5rem] rounded-lg">
-            Lastname
+            {User.lastname}
           </div>
           <div className="border border-black h-[3rem] col-span-full pl-2 pt-1 text-[1.5rem] rounded-lg">
-            mobile
+            {User.mobile}
           </div>
         </div>
       </div>
