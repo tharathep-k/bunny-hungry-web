@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as authProduct from "../../../api/auth-product";
+import * as authProduct from "../../../api/menu-api";
 
 const initialState = {
   error: null,
   loading: false,
   data: [],
+  allAdd: {},
 };
 
 export const createMenu = createAsyncThunk(
-  "auth/createMenu",
+  "menu/createMenu",
   async (input, thunkApi) => {
     try {
       console.log(input);
@@ -21,7 +22,7 @@ export const createMenu = createAsyncThunk(
 );
 
 export const editMenu = createAsyncThunk(
-  "auth/editMenu",
+  "menu/editMenu",
   async (input, thunkApi) => {
     try {
       await authProduct.editMenu(input);
@@ -31,24 +32,40 @@ export const editMenu = createAsyncThunk(
     }
   }
 );
-export const getMenu = createAsyncThunk("auth/getMenu", async (_, thunkApi) => {
+export const getMenu = createAsyncThunk("menu/getMenu", async (_, thunkApi) => {
   try {
     const res = await authProduct.getMenu();
-    console.log(res)
-    return res.data
+    console.log(res);
+    return res.data;
   } catch (error) {
     return thunkApi.rejectWithValue(error.response.data.message);
   }
 });
 
-export const deleteMenu = createAsyncThunk("auth/deleteMenu", async (id, thunkApi) => {
-  try {
-    const res = await authProduct.deleteMenu(id)
-    return res.data
-  } catch (error) {
-    return thunkApi.rejectWithValue(error.response.data.message);
+export const deleteMenu = createAsyncThunk(
+  "menu/deleteMenu",
+  async (id, thunkApi) => {
+    try {
+      const res = await authProduct.deleteMenu(id);
+      return res.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data.message);
+    }
   }
-})
+);
+
+export const getAllAdd = createAsyncThunk(
+  "menu/getAllAdd",
+  async (_, thunkApi) => {
+    try {
+      const res = await authProduct.getAllAdd();
+      console.log("------slice : ", res.data);
+      return res.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 const menuSlice = createSlice({
   name: "menu",
@@ -75,9 +92,21 @@ const menuSlice = createSlice({
         state.loading = false;
       })
       .addCase(deleteMenu.fulfilled, (state, action) => {
-        const idx = state.data.findIndex(el => el.id === action.payload.id)
-        state.data[idx] = action.payload 
+        const idx = state.data.findIndex((el) => el.id === action.payload.id);
+        state.data[idx] = action.payload;
       })
+      .addCase(getAllAdd.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(getAllAdd.fulfilled, (state, action) => {
+        state.allAdd = action.payload;
+        state.loading = false;
+      })
+      .addCase(getAllAdd.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      }),
 });
 
 export default menuSlice.reducer;

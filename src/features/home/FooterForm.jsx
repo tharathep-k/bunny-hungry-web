@@ -17,31 +17,25 @@ export default function FooterFrom() {
     } else {
       navigate("/login");
     }
-
-    // if (staff) {
-    //   navigate("/profile")
-    // } else {
-    //   navigate("/login");
-    // }
   };
 
   return (
-    <div className="sm:max-w-[27rem] sm:h-[6rem] flex fixed bottom-0">
+    <div className="sm:max-w-[27rem] sm:h-[4.5rem] flex fixed bottom-0">
       <Link
         to="/home"
         role="button"
-        className="h-[6rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
+        className="h-[4.5rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
       >
-        <div className="w-[4rem] h-[4rem]">
+        <div className="w-[3rem] h-[3rem]">
           <img src={homeIcon} className="fill-white" />
         </div>
       </Link>
       <Link
         to="/cart"
         role="button"
-        className="h-[6rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
+        className="h-[4.5rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
       >
-        <div className="w-[4rem] h-[4rem]">
+        <div className="w-[3rem] h-[3rem]">
           <img src={cartIcon} />
         </div>
       </Link>
@@ -49,9 +43,9 @@ export default function FooterFrom() {
         onClick={onNavigateToProfile}
         // to="/login"
         // role="button"
-        className="h-[6rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
+        className="h-[4.5rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
       >
-        <div className="w-[4rem] h-[4rem]">
+        <div className="w-[3rem] h-[3rem]">
           <img src={profileIcon} />
         </div>
       </div>

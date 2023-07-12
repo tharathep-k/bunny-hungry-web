@@ -25,7 +25,7 @@ export default function AdminHomePage() {
         <header className="sm:w-[27rem] sm:h-[18rem] overflow-hidden border border-black">
           <img src={logoHeader} className="sm:w-[27rem] sm:h-[18rem]" />
         </header>
-        <div className="bg-gray-100 sm:w-[43vh] sm:h-[58vh] flex flex-col">
+        <div className="bg-gray-100 sm:w-[43vh] sm:h-[60.8vh] flex flex-col">
           <div className="flex justify-between">
             <div className="sm:h-[2rem] sm:max-w-[27rem] pl-4 pt-4 text-black font-semibold text-[1.5rem]">
               Menu List

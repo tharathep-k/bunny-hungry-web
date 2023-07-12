@@ -25,7 +25,7 @@ export default function ProfileAdminPage() {
           <header className="sm:w-[27rem] sm:h-[18rem] overflow-hidden border border-black">
             <img src={logoHeader} className="sm:w-[27rem] sm:h-[18rem]" />
           </header>
-          <div className="bg-gray-100 sm:w-[27rem] sm:h-[50vh] flex flex-col items-center gap-4 pt-10">
+          <div className="bg-gray-100 sm:w-[27rem] sm:h-[51vh] flex flex-col items-center gap-4 pt-10">
             <div className="sm:h-[4.5rem] sm:w-[4.5rem] text-black font-semibold text-[1.5rem]">
               <img src={profileIcon} />
             </div>
