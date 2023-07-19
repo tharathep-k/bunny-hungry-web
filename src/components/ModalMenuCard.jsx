@@ -1,26 +1,31 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import moogob from "../assets/moogob.jpeg";
+import { createCart } from "../features/cart/slice/cart-slice";
 
 export default function ModalMenuCard({ onClose, open, item, allAdd }) {
   const [count, setCount] = useState(1);
-  const [sum, setSum] = useState(0);
-  const [isCheckedSpicy, setIsCheckedSpicy] = useState(false);
-  const [extra, setExtra] = useState(0);
+  const [sum, setSum] = useState("");
+  const [spicy, setSpicy] = useState("");
+  const [addEgg, setAddEgg] = useState(+"");
+  const [extra, setExtra] = useState(+"");
+  const [input, setInput] = useState({});
 
-  // console.log("egg", allAdd.eggs);
+  const user = useSelector((state) => state.auth.user);
 
+  // console.log("-----", user.id);
+
+  // console.log("extra", extra);
+
+  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   useEffect(() => {
-    // setExtra()
-    setSum(item.price * count + extra);
-  }, [count]);
-
-  const spicyChecked = () => {
-    setIsCheckedSpicy(!isCheckedSpicy);
-  };
+    setSum((+item.price + extra + addEgg) * count);
+    setInput({ ...input, extra, spicy, addEgg, count, name:item.name, userId: user?.id, sumPrice: sum });
+  }, [count, spicy, addEgg, extra, sum]);
+  // console.log("sent all input :", input);
 
   const handleOnClose = () => {
     setCount(1);
@@ -39,7 +44,8 @@ export default function ModalMenuCard({ onClose, open, item, allAdd }) {
   };
 
   const handleOnClickSubmit = () => {
-    navigate("/cart");
+    dispatch(createCart(input))
+    onClose()
   };
 
   return (
@@ -65,7 +71,7 @@ export default function ModalMenuCard({ onClose, open, item, allAdd }) {
               {/* ----- Title ----- */}
               <div className="border border-slate-400 rounded-b-md h-[6rem] px-6 flex justify-between items-center">
                 <a>{item.name}</a>
-                <a>{item.price} Bath</a>
+                <a>{item.price} &#3647;</a>
               </div>
 
               {/* ----- addSpicy ----- */}
@@ -73,25 +79,53 @@ export default function ModalMenuCard({ onClose, open, item, allAdd }) {
                 <a>เลือกระดับความเผ็ด</a>
                 <div className="flex gap-4">
                   <label class="container">
-                    <input type="radio" name="spicy" />
+                    <input
+                      type="radio"
+                      name="spicy"
+                      value={allAdd.spicy[0].levelSpicy}
+                      onChange={() => {
+                        setSpicy(allAdd.spicy[0].levelSpicy);
+                      }}
+                    />
                     <span></span> {allAdd.spicy[0].name}
                   </label>
                 </div>
                 <div className="flex gap-4">
                   <label class="container">
-                    <input type="radio" name="spicy" />
+                    <input
+                      type="radio"
+                      name="spicy"
+                      value={allAdd.spicy[1].levelSpicy}
+                      onChange={() => {
+                        setSpicy(allAdd.spicy[1].levelSpicy);
+                      }}
+                    />
                     <span></span> {allAdd.spicy[1].name}
                   </label>
                 </div>
                 <div className="flex gap-4">
                   <label class="container">
-                    <input type="radio" name="spicy" />
+                    <input
+                      type="radio"
+                      name="spicy"
+                      value={allAdd.spicy[2].levelSpicy}
+                      onChange={() => {
+                        setSpicy(allAdd.spicy[2].levelSpicy);
+                      }}
+                    />
                     <span></span> {allAdd.spicy[2].name}
                   </label>
                 </div>
                 <div className="flex gap-4">
                   <label class="container">
-                    <input type="radio" name="spicy" />
+                    <input
+                      type="radio"
+                      name="spicy"
+                      value={allAdd.spicy[3].levelSpicy}
+                      onChange={() => {
+                        setSpicy(allAdd.spicy[3].levelSpicy);
+                      }}
+                    />
                     <span></span> {allAdd.spicy[3].name}
                   </label>
                 </div>
@@ -100,41 +134,67 @@ export default function ModalMenuCard({ onClose, open, item, allAdd }) {
               {/* ----- addEgg ----- */}
               <div className="flex flex-col py-4 px-6 gap-2 border border-slate-400 rounded-md">
                 <a>เลือกเพิ่มไข่</a>
-                <div className="flex gap-4">
-                  <label class="container">
-                    <input type="radio" name="egg" />
-                    <span></span> {allAdd.eggs[0].name}
-                  </label>
+                <div className="flex justify-between">
+                  <div className="flex gap-4">
+                    <label class="container">
+                      <input
+                        type="radio"
+                        name="egg"
+                        value={allAdd.eggs[0].id}
+                        onChange={() => {
+                          setAddEgg(+allAdd.eggs[0].price);
+                        }}
+                      />
+                      <span></span> {allAdd.eggs[0].name}
+                    </label>
+                  </div>
+                  <a>+ {allAdd.eggs[0].price} &#3647;</a>
                 </div>
                 <div className="flex justify-between">
                   <div className="flex gap-4">
                     <label class="container">
-                      <input type="radio" name="egg" />
+                      <input
+                        type="radio"
+                        name="egg"
+                        value={allAdd.eggs[1].id}
+                        onChange={() => {
+                          setAddEgg(+allAdd.eggs[1].price);
+                        }}
+                      />
                       <span></span> {allAdd.eggs[1].name}
                     </label>
                   </div>
-                  <a>+ {allAdd.eggs[1].price} Bath</a>
+                  <a>+ {allAdd.eggs[1].price} &#3647;</a>
                 </div>
                 <div className="flex justify-between">
                   <div className="flex gap-4">
                     <label class="container">
-                      <input type="radio" name="egg" />
+                      <input
+                        type="radio"
+                        name="egg"
+                        value={allAdd.eggs[2].id}
+                        onChange={() => {
+                          setAddEgg(+allAdd.eggs[2].price);
+                        }}
+                      />
                       <span></span> {allAdd.eggs[2].name}
                     </label>
                   </div>
-                  <a>+ {allAdd.eggs[2].price} Bath</a>
+                  <a>+ {allAdd.eggs[2].price} &#3647;</a>
                 </div>
               </div>
 
               {/* ----- Extra ----- */}
               <div className="flex flex-col py-4 px-6 gap-2 border border-slate-400 rounded-md">
-                <a>เลือกระดับความเผ็ด</a>
+                <a>ปริมาณอาหาร</a>
                 <div className="flex justify-between">
                   <div className="flex gap-4">
                     <label className="container">
                       <input
                         type="radio"
-                        name="radio"
+                        name="extra"
+                        value={allAdd.extra[0].id}
+                        // onChange={handleChangeInput}
                         onChange={() => {
                           setExtra(+allAdd.extra[0].price);
                         }}
@@ -142,14 +202,16 @@ export default function ModalMenuCard({ onClose, open, item, allAdd }) {
                       <span></span> {allAdd.extra[0].name}
                     </label>
                   </div>
-                  <a>+ {allAdd.extra[0].price} Bath</a>
+                  <a>+ {allAdd.extra[0].price} &#3647;</a>
                 </div>
                 <div className="flex justify-between">
                   <div className="flex gap-4">
                     <label class="container">
                       <input
                         type="radio"
-                        name="radio"
+                        name="extra"
+                        value={allAdd.extra[1].id}
+                        // onChange={handleChangeInput}
                         onChange={() => {
                           setExtra(+allAdd.extra[1].price);
                         }}
@@ -157,7 +219,7 @@ export default function ModalMenuCard({ onClose, open, item, allAdd }) {
                       <span></span> {allAdd.extra[1].name}
                     </label>
                   </div>
-                  <a>+ {allAdd.extra[1].price} Bath</a>
+                  <a>+ {allAdd.extra[1].price} &#3647;</a>
                 </div>
               </div>
 

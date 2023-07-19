@@ -11,6 +11,7 @@ import ProfileAdminPage from "../pages/ProfileAdminPage";
 import ProfilePage from "../pages/ProfilePage";
 import StartPage from "../pages/StartPage";
 import OrderAdminPage from "../pages/OrderAdminPage";
+import OrderPage from "../pages/OrderPage";
 
 const router = createBrowserRouter([
   { index: true, element: <StartPage /> },
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/home", element: <HomePage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/cart", element: <CartPage /> },
+      { path: "/order", element: <OrderPage /> },
     ],
   },
   {

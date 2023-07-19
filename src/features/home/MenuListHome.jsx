@@ -4,7 +4,7 @@ import ModalMenuCard from "../../components/ModalMenuCard";
 export default function MenuListHome({ item, allAdd }) {
   const [open, setOpen] = useState(false);
 
-  console.log("-------",item);
+  // console.log("-------",item);
 
   const handleOnClickImg = (e) => {
     setOpen(true);

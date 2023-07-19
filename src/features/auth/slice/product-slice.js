@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as authProduct from "../../../api/menu-api";
+import * as productApi from "../../../api/menu-api";
 
 const initialState = {
   error: null,
   loading: false,
   data: [],
   allAdd: {},
+  cart: [],
 };
 
 export const createMenu = createAsyncThunk(
@@ -13,7 +14,7 @@ export const createMenu = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       console.log(input);
-      const res = await authProduct.createMenu(input);
+      const res = await productApi.createMenu(input);
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
@@ -25,7 +26,7 @@ export const editMenu = createAsyncThunk(
   "menu/editMenu",
   async (input, thunkApi) => {
     try {
-      await authProduct.editMenu(input);
+      await productApi.editMenu(input);
       return input;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
@@ -34,7 +35,7 @@ export const editMenu = createAsyncThunk(
 );
 export const getMenu = createAsyncThunk("menu/getMenu", async (_, thunkApi) => {
   try {
-    const res = await authProduct.getMenu();
+    const res = await productApi.getMenu();
     console.log(res);
     return res.data;
   } catch (error) {
@@ -46,7 +47,7 @@ export const deleteMenu = createAsyncThunk(
   "menu/deleteMenu",
   async (id, thunkApi) => {
     try {
-      const res = await authProduct.deleteMenu(id);
+      const res = await productApi.deleteMenu(id);
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
@@ -58,8 +59,8 @@ export const getAllAdd = createAsyncThunk(
   "menu/getAllAdd",
   async (_, thunkApi) => {
     try {
-      const res = await authProduct.getAllAdd();
-      console.log("------slice : ", res.data);
+      const res = await productApi.getAllAdd();
+      // console.log("------slice : ", res.data);
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);

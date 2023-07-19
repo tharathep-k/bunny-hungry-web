@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import profileIcon from "../../icons/profile.svg";
-import cartIcon from "../../icons/shopping-cart.svg";
+import billIcon from "../../icons/bill.svg";
 import homeIcon from "../../icons/home.svg";
 import { useSelector } from "react-redux";
 
@@ -46,7 +46,7 @@ export default function FooterFormAdmin() {
         className="h-[4.5rem] w-[9rem] bg-red-900 flex items-center justify-center border border-black"
       >
         <div className="w-[3rem] h-[3rem]">
-          <img src={cartIcon} />
+          <img src={billIcon} />
         </div>
       </div>
       <div
