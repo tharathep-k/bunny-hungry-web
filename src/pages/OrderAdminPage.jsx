@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import logoHeader from "../assets/bunny-hungry-low-circle-logo.png";
@@ -6,7 +7,7 @@ import { getAllOrder } from "../features/order/slice/order-slice";
 
 export default function OrderAdminPage() {
   const data = useSelector((state) => state.order.allOrder);
-  console.log("=======", data);
+  // console.log("=======", data);
 
   const dispatch = useDispatch();
 
@@ -23,7 +24,9 @@ export default function OrderAdminPage() {
         <div className="sm:h-[2rem] sm:max-w-[27rem] pl-4 pt-4 text-black font-semibold text-[1.5rem]">
           Order
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:mx-[2rem] sm:my-10">
+        <div
+          className="grid grid-cols-1 gap-4 sm:mx-[2rem] sm:my-10"
+        >
           {data.map((el) => (
             <OrderAdminCard key={el.id} data={el} />
           ))}

@@ -69,6 +69,19 @@ export const updateStatusOrder = createAsyncThunk(
   }
 );
 
+export const getInfoOrder = createAsyncThunk(
+  "order/getInfoOrder",
+  async (id, thunkApi) => {
+    try {
+      const res = await orderApi.getInfoOrder(id);
+      console.log("getInfoOrder----- : ", res.data);
+      // return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 const orderSlice = createSlice({
   name: "order",
   initialState,

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { createCart } from "../features/cart/slice/cart-slice";
 
 export default function ModalMenuCard({ onClose, open, item, allAdd }) {
@@ -19,7 +19,7 @@ export default function ModalMenuCard({ onClose, open, item, allAdd }) {
   // console.log("extra", extra);
 
   const dispatch = useDispatch()
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     setSum((+item.price + extra + addEgg) * count);

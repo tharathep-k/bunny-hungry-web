@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import ModalOrderCard from "../../components/ModalOrderCard";
 import { getAllOrder, updateStatusOrder } from "../order/slice/order-slice";
 
 export default function OrderAdminCard({ data }) {
+  const [open, setOpen] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleOnClick = async () => {
@@ -9,24 +13,34 @@ export default function OrderAdminCard({ data }) {
     await dispatch(getAllOrder()).upwrap();
   };
 
-  return (
-    <div className="sm:h-[6rem] sm:w-[22rem] border border-gray-500 flex justify-between items-center">
-      <div className="ml-2">OrderID: {data.id} </div>
-      <div className="w-[8rem] ml-3">Status: {data.status} </div>
-      {data.status == "pending" ? (
-        <div
-          className="mr-4 p-1 rounded-lg bg-gray-400 text-white hover:bg-white hover:text-gray-400"
-          onClick={handleOnClick}
-        >
-          Confirm Pay
-        </div>
-      ) : (
-        <div className="invisible mr-4 p-1">Confirm Pay</div>
-      )}
-    </div>
+  const handleOnClickOpen = () => {
+    setOpen(true);
+  };
 
-    // <div className="w-[8rem] text-center mr-2 p-1 rounded-lg bg-gray-400 text-white hover:bg-white hover:text-gray-400 ">
-    //   Confirm Pay
-    // </div>
+  const newData = data
+  console.log("----", newData);
+
+  return (
+    <>
+      <div
+        className="sm:h-[6rem] sm:w-[22rem] border border-gray-500 flex justify-between items-center"
+        onClick={handleOnClickOpen}
+        role="button"
+      >
+        <div className="ml-2">OrderID: {data.id} </div>
+        <div className="w-[8rem] ml-3">Status: {data.status} </div>
+        {data.status == "pending" ? (
+          <div
+            className="mr-4 p-1 rounded-lg bg-gray-400 text-white hover:bg-white hover:text-gray-400"
+            onClick={handleOnClick}
+          >
+            Confirm Pay
+          </div>
+        ) : (
+          <div className="invisible mr-4 p-1">Confirm Pay</div>
+        )}
+      </div>
+      <ModalOrderCard open={open} onClose={() => setOpen(false)} data={newData}/>
+    </>
   );
 }

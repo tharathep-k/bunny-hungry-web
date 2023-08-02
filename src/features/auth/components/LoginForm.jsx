@@ -47,6 +47,7 @@ export default function LoginForm() {
           name="mobile"
           placeholder="Phone number"
           onChange={handleChangeInputLogin}
+          type="text"
           value={input.mobile}
           isInvalid={error.mobile}
         />
@@ -57,12 +58,16 @@ export default function LoginForm() {
           name="password"
           placeholder="Password"
           onChange={handleChangeInputLogin}
+          type="password"
           value={input.password}
           isInvalid={error.password}
         />
         {error.password && <InputErrorMessage message={error.password} />}
       </div>
-      <LoginSelect />
+      {/* Select Table */}
+
+      {/* <LoginSelect /> */}
+
       <button className="h-[2rem] w-[8rem] sm:w-[6rem] sm:h-[2rem] sm:text-[14px] rounded-lg font-semibold bg-white text-gray-400 hover:bg-green-200 hover:text-white">
         Login
       </button>

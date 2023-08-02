@@ -1,6 +1,6 @@
 import createClasses from "../../../utils/create-classes";
 
-export default function LoginInput({ placeholder, isInvalid, onChange, value, name }) {
+export default function LoginInput({ placeholder, isInvalid, onChange, value, name, type }) {
   const defaultClassnameLogin =
     "w-[20rem] py-1 px-3 rounded-lg sm:w-[16rem] outline-none focus:ring";
 
@@ -13,7 +13,7 @@ export default function LoginInput({ placeholder, isInvalid, onChange, value, na
 
   return (
     <input
-      type="text"
+      type={type}
       className={className}
       placeholder={placeholder}
       onChange={onChange}
