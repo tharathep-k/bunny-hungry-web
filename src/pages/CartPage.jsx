@@ -20,7 +20,7 @@ export default function CartPage() {
     .map((el) => ({ sumPrice: el.sumPrice }))
     .reduce((acc, el) => acc + el.sumPrice, 0);
 
-  console.log("------", data);
+  // console.log("------", data);
   // console.log("sssssss", sumPrice);
 
   useEffect(() => {

@@ -1,13 +1,25 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ModalOrderCard from "../../components/ModalOrderCard";
+import { getInfoOrder } from "./slice/order-slice";
 
 export default function OrderForm({ data }) {
+  const modalData = useSelector(state => state.order.showAllData)
+  // console.log("===", data.id);
+
   const [open, setOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleOnClickOpen = (e) => {
     setOpen(true);
+    dispatch(getInfoOrder(data.id));
   };
-  console.log("open", open);
+  // console.log("open", open);
+
+  const newData = data;
+
+
   return (
     <>
       <div
@@ -28,6 +40,7 @@ export default function OrderForm({ data }) {
         open={open}
         onClose={() => setOpen(false)}
         data={newData}
+        modalData={modalData}
       />
     </>
   );

@@ -6,6 +6,7 @@ const initialState = {
   data: [],
   orderData: [],
   allOrder: [],
+  showAllData: {}
 };
 
 export const createOrder = createAsyncThunk(
@@ -73,9 +74,10 @@ export const getInfoOrder = createAsyncThunk(
   "order/getInfoOrder",
   async (id, thunkApi) => {
     try {
+      console.log("======= :", id);
       const res = await orderApi.getInfoOrder(id);
       console.log("getInfoOrder----- : ", res.data);
-      // return res.data
+      return res.data
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
     }
@@ -99,7 +101,10 @@ const orderSlice = createSlice({
       .addCase(updateStatusOrder.fulfilled, (state, action) => {
         const status = state.allOrder.find((el) => el.id == action.payload);
         status.status = "complete";
-      }),
+      })
+      .addCase(getInfoOrder.fulfilled, (state, action) => {
+        state.showAllData = action.payload
+      })
 });
 
 export default orderSlice.reducer;

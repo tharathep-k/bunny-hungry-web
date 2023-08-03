@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModalOrderCard from "../../components/ModalOrderCard";
-import { getAllOrder, updateStatusOrder } from "../order/slice/order-slice";
+import {
+  getAllOrder,
+  getInfoOrder,
+  updateStatusOrder,
+} from "../order/slice/order-slice";
 
 export default function OrderAdminCard({ data }) {
+  const modalData = useSelector(state => state.order.showAllData)
+
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -13,11 +19,12 @@ export default function OrderAdminCard({ data }) {
     await dispatch(getAllOrder()).upwrap();
   };
 
-  const handleOnClickOpen = () => {
+  const handleOnClickOpen = async () => {
     setOpen(true);
+    await dispatch(getInfoOrder(data.id)).upwrap();
   };
 
-  const newData = data
+  const newData = data;
   console.log("----", newData);
 
   return (
@@ -40,7 +47,12 @@ export default function OrderAdminCard({ data }) {
           <div className="invisible mr-4 p-1">Confirm Pay</div>
         )}
       </div>
-      <ModalOrderCard open={open} onClose={() => setOpen(false)} data={newData}/>
+      <ModalOrderCard
+        open={open}
+        onClose={() => setOpen(false)}
+        data={newData}
+        modalData={modalData}
+      />
     </>
   );
 }
